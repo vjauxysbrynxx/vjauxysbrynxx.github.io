@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-inter: Inter;
+  --font-inconsolata: Inconsolata;
+  --font-dm-serif-display: "DM Serif Display";
+
+  /* font sizes */
+  --font-size-lg: 18px;
+  --font-size-5xl: 24px;
+  --font-size-mini: 15px;
+
+  /* Colors */
+  --color-black: #000;
+  --color-white: #fff;
+  --color-cadetblue: #76abae;
+
+  /* Paddings */
+  --padding-3xs: 10px;
+
+  /* Border radiuses */
+  --br-8xs: 5px;
+}
