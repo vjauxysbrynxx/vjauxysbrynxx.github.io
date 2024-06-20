@@ -61,6 +61,14 @@ body {
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(61, 58, 87, 0.092);
     margin: 0; */
+
+    padding-bottom: 9px;
+    background: rgba(10, 9, 19, 0.676);
+    border-radius: 16px 16px 0px 0px ;
+    /* box-shadow: 0 0px 30px #ffd06218; */
+    backdrop-filter: blur(5.8px);
+    -webkit-backdrop-filter: blur(5.8px);
+    border: 1px solid rgba(10, 9, 19, 0.473);
 }
 
 .window-bar {
@@ -91,12 +99,42 @@ body {
     background-color: #ff605c;
 }
 
+.red:hover {
+    /* background-color: #fe7472; */
+    transform: scale(1.1);
+}
+
+.red:active {
+    background-color: rgb(255, 96, 94);
+    transform: scale(0.9);
+}
+
 .yellow {
     background-color: #ffbd44;
 }
 
+.yellow:hover {
+    /* background-color: #fe7472; */
+    transform: scale(1.1);
+}
+
+.yellow:active {
+    background-color: #ffb52b;
+    transform: scale(0.9);
+}
+
 .green {
     background-color: #00ca4e;
+}
+
+.green:hover {
+    /* background-color: #fe7472; */
+    transform: scale(1.1);
+}
+
+.green:active {
+    background-color: #00b746;
+    transform: scale(0.9);
 }
 
 #terminal-output {
@@ -237,16 +275,17 @@ body {
   }
   
   #mydivheader {
-    /* padding: 10px; */
+    margin-top: -10px;
+    margin-bottom: -10px;
+    padding: 10px;
     cursor: move;
     z-index: 10;    
-    padding-bottom: 9px;
-    background: rgba(10, 9, 19, 0.676);
-    border-radius: 16px 16px 0px 0px ;
-    /* box-shadow: 0 0px 30px #ffd06218; */
-    backdrop-filter: blur(5.8px);
-    -webkit-backdrop-filter: blur(5.8px);
-    border: 1px solid rgba(10, 9, 19, 0.473);
+    
+    padding-right: 85%;
+    position: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    
   }
 
   

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalInput = document.getElementById("terminal-input");
     const terminalOutput = document.getElementById("terminal-output");
     const commandOutput = document.createElement("div");
+    // terminalOutput.innerHTML = "Hello world! What can I do for you today?";
 
     function hello() {
         const cvContent = `
@@ -22,9 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const commands = {
-        help: "Available commands: help, about, contact, cv, projects, skills, and clear.",
+        help: "Available commands: help, about, contact, cv, projects, skills, and clear.", typeWriter,
         about: "I am Benz Vrianne Beleber, a web developer with a passion for creating interactive web experiences.",
-        contact: "You can reach me at " + `<a href= "mailto:bpbeleber@up.edu.ph">bpbeleber@up.edu.ph</a>`,
+        contact: "You can reach me at " + `<a href= "mailto:bpbeleber@up.edu.ph">bpbeleber@up.edu.</a>`,
+
         skills: showSkills,
         projects: showProjects,
         cv: showCV,
@@ -32,7 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function scrollToBottom() {
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        var bottomElement = terminalOutput.
+            lastElementChild;
+        bottomElement
+            .scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     terminalInput.addEventListener("keydown", (event) => {
@@ -44,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
             output.classList.add("output-line");
             output.textContent = `> ${input}`;
             terminalOutput.appendChild(output);
-            
 
             const commandOutput = document.createElement("div");
             commandOutput.classList.add("output-line");
@@ -55,21 +59,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     typeWriter(commands[input], commandOutput);
                     terminalOutput.appendChild(commandOutput);
-                    
                 }
             } else {
                 typeWriter(`'${input}' is not recognized as a command. Type 'help' for a list of commands.`, commandOutput);
                 terminalOutput.appendChild(commandOutput);
-                
             }
 
             const blankLine = document.createElement("div");
             blankLine.classList.add("output-line");
-            blankLine.innerHTML = "&nbsp;";
+            blankLine.innerHTML = "&nbsp;"; //non breaking space
             terminalOutput.appendChild(blankLine);
-            
+            // terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+            scrollToBottom;
         }
     });
+
+    var terminalScroll = document.getElementById("terminal-output");
+    terminalScroll.scrollTop = terminalScroll.scrollHeight; 
 
     function typeWriter(text, element) {
         let i = 0;
@@ -78,12 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 element.innerHTML += text.charAt(i);
                 i++;
                 setTimeout(typingEffect, 10);
-                scrollToBottom(); 
             }
         }
         typingEffect();
     }
-
+    
     function showCV() {
         const cvContent = `
 BENZ VRIANNE P. BELEBER
@@ -209,74 +215,53 @@ Project Kurdam (2023 - present)
     dragElement(document.getElementById("mydiv"));
 
     function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        if (document.getElementById(elmnt.id + "header")) {
-            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-        } else {
-            elmnt.onmousedown = dragMouseDown;
-        }
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+        elmnt.onmousedown = dragMouseDown;
+    }
 
-        function dragMouseDown(e) {
-            e = e || window.event;
-            e.preventDefault();
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
 
-            if (e.target.classList.contains("box")) {
-                return;
-            }
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
 
-            
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
-
-            
-        }
-
-        function elementDrag(e) {
-            e = e || window.event;
-            e.preventDefault();
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        }
-
-        function closeDragElement() {
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
+    function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
     }
 
 
-    document.getElementById("exit").addEventListener("click", () => {
-        terminal.style.display = "none";
-    });
-
-    document.getElementById("minimize").addEventListener("click", () => {
-        terminal.style.height = "30px";
-        terminal.style.overflow = "hidden";
-        document.querySelector(".input-bar").style.display = "none";
-    });
-
-    document.getElementById("maximize").addEventListener("click", () => {
-        if (!isMaximized) {
-            terminal.style.position = "fixed";
-            terminal.style.top = "0";
-            terminal.style.left = "0";
-            terminal.style.width = "100%";
-            terminal.style.height = "100%";
-            terminal.style.zIndex = "1000";
-            isMaximized = true;
+    $(".max_min_button").click(function () {
+        if ($(this).html() == "-") {
+            $(this).html("+");
         } else {
-            terminal.style.position = "absolute";
-            terminal.style.width = "600px";
-            terminal.style.height = "400px";
-            isMaximized = false;
+            $(this).html("-");
         }
-        document.querySelector(".input-bar").style.display = "flex";
-        terminal.style.overflow = "auto";
+        var thisParent = $(this).parent();
+        $(thisParent).next(".terminal-output         bb").slideToggle();
     });
 });
+
