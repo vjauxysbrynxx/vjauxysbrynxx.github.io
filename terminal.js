@@ -19,8 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function clearTerminal () {
         terminalOutput.innerHTML = "";
-        typeWriter(`| about | cv | projects | skills | contact |`, commandOutput);
-        terminalOutput.appendChild(commandOutput);
+        // typeWriter(`| about | cv | projects | skills | contact |`, commandOutput);
+        // terminalOutput.appendChild(commandOutput);
+        hello();
     }
 
     const commands = {
@@ -258,4 +259,15 @@ Project Kurdam (2023 - present)
     }
     }
 
+
+    $(".max_min_button").click(function () {
+        if ($(this).html() == "-") {
+            $(this).html("+");
+        } else {
+            $(this).html("-");
+        }
+        var thisParent = $(this).parent();
+        $(thisParent).next(".terminal-output         bb").slideToggle();
+    });
 });
+
