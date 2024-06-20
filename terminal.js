@@ -3,20 +3,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalOutput = document.getElementById("terminal-output");
     const commandOutput = document.createElement("div");
     // terminalOutput.innerHTML = "Hello world! What can I do for you today?";
-    typeWriter(`Hello world! What can I do for you today?`, commandOutput);
-                terminalOutput.appendChild(commandOutput);
+
+    function hello() {
+        const cvContent = `
+> Hello world! What can I do for you today?
+| about | cv | projects | skills | contact |
+        `;
+
+        const commandOutput = document.createElement("pre");
+        commandOutput.classList.add("output-line");
+        terminalOutput.appendChild(commandOutput);
+        typeWriter(cvContent, commandOutput);
+    }
+    hello();
+
+    function clearTerminal () {
+        terminalOutput.innerHTML = "";
+        typeWriter(`| about | cv | projects | skills | contact |`, commandOutput);
+        terminalOutput.appendChild(commandOutput);
+    }
 
     const commands = {
         help: "Available commands: help, about, contact, cv, projects, skills, and clear.", typeWriter,
         about: "I am Benz Vrianne Beleber, a web developer with a passion for creating interactive web experiences.",
-        contact: "You can reach me at bpbeleber@up.edu.ph.",
+        contact: "You can reach me at " + `<a href= "mailto:bpbeleber@up.edu.ph">bpbeleber@up.edu.</a>`,
+
         skills: showSkills,
         projects: showProjects,
         cv: showCV,
-        clear: () => {
-            terminalOutput.innerHTML = "";
-        }
+        // clear: () => {
+        //     clearTerminal;
+        //     helloWorld;
+        // }
+        clear: clearTerminal
     };
+
+    function scrollToBottom() {
+        var bottomElement = terminalOutput.
+            lastElementChild;
+        bottomElement
+            .scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
 
     terminalInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
@@ -47,9 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
             blankLine.classList.add("output-line");
             blankLine.innerHTML = "&nbsp;"; //non breaking space
             terminalOutput.appendChild(blankLine);
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            // terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+            scrollToBottom;
         }
     });
+
+    var terminalScroll = document.getElementById("terminal-output");
+    terminalScroll.scrollTop = terminalScroll.scrollHeight; 
 
     function typeWriter(text, element) {
         let i = 0;
@@ -66,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function showCV() {
         const cvContent = `
 BENZ VRIANNE P. BELEBER
-Email: bpbeleber@up.edu.ph
 
 EDUCATION
 
@@ -185,4 +216,46 @@ Project Kurdam (2023 - present)
         terminalOutput.appendChild(commandOutput);
         typeWriter(cvContent, commandOutput);
     }
+
+    dragElement(document.getElementById("mydiv"));
+
+    function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+    }
+
 });
