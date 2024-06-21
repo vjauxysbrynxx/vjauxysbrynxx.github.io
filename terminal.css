@@ -16,7 +16,9 @@ body {
 }
 
 .bg-img {
-    width: 110%;
+    width: 1100px;
+    overflow: hidden;
+    
     /* max-height: 80%; */
 
 
