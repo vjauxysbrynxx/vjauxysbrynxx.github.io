@@ -182,7 +182,7 @@ Experience in music production
 PROJECTS
 
 SumSang Phone Emulator (2021)
-Phone emulator built with Python
+- Phone emulator built with Python
 
 Typer Cat (2022)
 - A typing game built with Java
@@ -248,20 +248,39 @@ Project Kurdam (2023 - present)
             document.onmouseup = null;
             document.onmousemove = null;
         }
+    };
+
+
+    let isMaximized = false;
+    let terminal = document.getElementById("mydiv");
+
+    function toggleTerminal(action) {
+        switch (action) {
+            case 'exit':
+                exit();
+                break;
+            case 'minimize':
+                minimize();
+                break;
+            case 'maximize':
+                maximize();
+                break;
+            default:
+                break;
+        }
     }
 
-
-    document.getElementById("exit").addEventListener("click", () => {
+    function exit() {
         terminal.style.display = "none";
-    });
+    }
 
-    document.getElementById("minimize").addEventListener("click", () => {
+    function minimize() {
         terminal.style.height = "30px";
         terminal.style.overflow = "hidden";
         document.querySelector(".input-bar").style.display = "none";
-    });
+    }
 
-    document.getElementById("maximize").addEventListener("click", () => {
+    function maximize() {
         if (!isMaximized) {
             terminal.style.position = "fixed";
             terminal.style.top = "0";
@@ -278,5 +297,60 @@ Project Kurdam (2023 - present)
         }
         document.querySelector(".input-bar").style.display = "flex";
         terminal.style.overflow = "auto";
-    });
+    }
+
+
+    // function exit() {
+    //     terminal.style.display = "none";
+    // };
+        
+    // function minimize() {
+    //     terminal.style.height = "30px";
+    //     terminal.style.overflow = "hidden";
+    //     document.querySelector(".input-bar").style.display = "none";
+    // }
+
+    // function maximize() {
+    //     if (!isMaximized) {
+    //         terminal.style.position = "fixed";
+    //         terminal.style.top = "0";
+    //         terminal.style.left = "0";
+    //         terminal.style.width = "100%";
+    //         terminal.style.height = "100%";
+    //         terminal.style.zIndex = "1000";
+    //         isMaximized = true;
+    //     } else {
+    //         terminal.style.position = "absolute";
+    //         terminal.style.width = "600px";
+    //         terminal.style.height = "400px";
+    //         isMaximized = false;
+    //     }
+    //     document.querySelector(".input-bar").style.display = "flex";
+    //     terminal.style.overflow = "auto";
+    // }
+
+    // document.getElementById("minimize").addEventListener("click", () => {
+    //     terminal.style.height = "30px";
+    //     terminal.style.overflow = "hidden";
+    //     document.querySelector(".input-bar").style.display = "none";
+    // });
+
+    // document.getElementById("maximize").addEventListener("click", () => {
+    //     if (!isMaximized) {
+    //         terminal.style.position = "fixed";
+    //         terminal.style.top = "0";
+    //         terminal.style.left = "0";
+    //         terminal.style.width = "100%";
+    //         terminal.style.height = "100%";
+    //         terminal.style.zIndex = "1000";
+    //         isMaximized = true;
+    //     } else {
+    //         terminal.style.position = "absolute";
+    //         terminal.style.width = "600px";
+    //         terminal.style.height = "400px";
+    //         isMaximized = false;
+    //     }
+    //     document.querySelector(".input-bar").style.display = "flex";
+    //     terminal.style.overflow = "auto";
+    // });
 });
