@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const commands = {
         help: "Available commands: help, about, contact, cv, projects, skills, and clear.",
         about: "I am Benz Vrianne Beleber, a web developer with a passion for creating interactive web experiences.",
-        contact: "You can reach me at " + `<a href= "mailto:bpbeleber@up.edu.ph">bpbeleber@up.edu.ph</a>`,
+        contact: "You can reach me at bpbeleber@up.edu.ph",
         skills: showSkills,
         projects: showProjects,
         cv: showCV,
@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const blankLine = document.createElement("div");
-            blankLine.classList.add("output-line");
-            blankLine.innerHTML = "&nbsp;";
-            terminalOutput.appendChild(blankLine);
+            newLine.classList.add("output-line");
+            newLine.innerHTML = "&nbsp;";
+            terminalOutput.appendChild(newLine);
             
         }
     });
