@@ -128,6 +128,9 @@ A guitar effects pedal prototype using an Arduino Uno
 POS System (2024)
 A point-of-sale system website built with HTML, Javascript, PHP, and CSS
 
+Generals (Game of the Generals Mobile Game) (2024)
+A mobile game based from the local board game Salpakan built with flutter.
+
 Project Kurdam (2023 - present)
 Top-down turn-based 2D game built with C# and Unity
 
@@ -195,6 +198,9 @@ Guitar Distortion Pedal using Arduino Uno (2023)
 
 POS System (2024)
 - A point-of-sale system website built with HTML, Javascript, PHP, and CSS
+
+Generals (Game of the Generals Mobile Game) (2024)
+- A mobile game based from the local board game Salpakan built with flutter.
 
 Project Kurdam (2023 - present)
 - Top-down, open-world, turn-based 2D game built with C# and Unity inspired from Dungeons and dragons and Pokemon.
