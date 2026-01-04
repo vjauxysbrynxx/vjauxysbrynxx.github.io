@@ -1,75 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // --- 1. Setup ---
     const terminalInput = document.getElementById("terminal-input");
     const terminalOutput = document.getElementById("terminal-output");
-    const commandOutput = document.createElement("div");
+    const mainTerminal = document.getElementById("mydiv");
+    const mainHeader = document.getElementById("mydivheader");
+    let globalZIndex = 100;
 
-    function hello() {
-        const cvContent = `
-> Hello world! What can I do for you today?
-| about | cv | projects | skills | contact |
-        `;
+    if (!terminalInput || !terminalOutput) return;
 
-        const commandOutput = document.createElement("pre");
-        commandOutput.classList.add("output-line");
-        terminalOutput.appendChild(commandOutput);
-        typeWriter(cvContent, commandOutput);
-    }
-    hello();
-
-    function clearTerminal () {
-        terminalOutput.innerHTML = "";
-        hello();
-    }
-
-    const commands = {
-        help: "Available commands: help, about, contact, cv, projects, skills, and clear.",
-        about: "I am Benz Vrianne Beleber, a web developer with a passion for creating interactive web experiences.",
-        contact: "You can reach me at bpbeleber@up.edu.ph",
-        skills: showSkills,
-        projects: showProjects,
-        cv: showCV,
-        clear: clearTerminal
-    };
-
-    function scrollToBottom() {
+    // --- 2. Helper Functions ---
+    function printLog(text) {
+        const line = document.createElement("div");
+        line.classList.add("output-line");
+        line.innerHTML = text;
+        terminalOutput.appendChild(line);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    terminalInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            const input = terminalInput.value.trim().toLowerCase();
-            terminalInput.value = "";
-
-            const output = document.createElement("div");
-            output.classList.add("output-line");
-            output.textContent = `> ${input}`;
-            terminalOutput.appendChild(output);
-            
-
-            const commandOutput = document.createElement("div");
-            commandOutput.classList.add("output-line");
-
-            if (commands[input]) {
-                if (typeof commands[input] === "function") {
-                    commands[input]();
-                } else {
-                    typeWriter(commands[input], commandOutput);
-                    terminalOutput.appendChild(commandOutput);
-                    
-                }
-            } else {
-                typeWriter(`'${input}' is not recognized as a command. Type 'help' for a list of commands.`, commandOutput);
-                terminalOutput.appendChild(commandOutput);
-                
-            }
-
-            const blankLine = document.createElement("div");
-            newLine.classList.add("output-line");
-            newLine.innerHTML = "&nbsp;";
-            terminalOutput.appendChild(newLine);
-            
-        }
-    });
+    function focusWindow(element) {
+        if (!element) return;
+        globalZIndex++;
+        element.style.zIndex = globalZIndex;
+    }
 
     function typeWriter(text, element) {
         let i = 0;
@@ -77,166 +29,130 @@ document.addEventListener("DOMContentLoaded", () => {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(typingEffect, 10);
-                scrollToBottom(); 
+                setTimeout(typingEffect, 2); 
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
             }
         }
         typingEffect();
     }
 
-    function showCV() {
-        const cvContent = `
-BENZ VRIANNE P. BELEBER
+    // --- 3. Window Factory ---
+    // Usage: spawnWindow(templateID, WindowTitle, Left%, Top%)
+    function spawnWindow(templateId, title, xPos, yPos) {
+        const template = document.getElementById(templateId);
+        if (!template) return;
 
-EDUCATION
+        globalZIndex++;
+        const win = document.createElement('div');
+        win.classList.add('pop-window');
+        
+        // --- POSITIONING LOGIC ---
+        win.style.zIndex = globalZIndex;
+        win.style.left = xPos;  // X Axis (Distance from Left)
+        win.style.top = yPos;   // Y Axis (Distance from Top)
 
-University of the Philippines Visayas Division of Physical Sciences and Mathematics
-Miagao Iloilo
-B.S. in Computer Science Third Year (2021 - present)
-
-Iloilo National High School
-Iloilo City Iloilo
-Senior High School With High Honors (2021)
-
-Barotac Nuevo National Comprehensive High School
-Barotac Nuevo Iloilo
-Junior High School With High Honors (2019)
-
-ACHIEVEMENTS
-
-DISMTA Excellence in Mathematics Awardee, Barotac Nuevo National Comprehensive High School (2019)
-Participant, Western Visayas Regional Statistics Quiz, NEDA Region 6 (2019)
-5th Place, Division Scilympics Create Show and Tell, New Lucena National Comprehensive High School (2017)
-Participant, Division Schools Press Conference Collaborative Desktop Publishing Photographer Layout Artist, Oton National Highschool (2016)
-2nd Place, Panulaton Photojournalism Regional Level, Silak Publication, Punta Villa Iloilo City (2015)
-3rd Place, Metrobank-MTAP DepEd Math Challenge Division Level, Iloilo National High School (2015)
-
-PROJECTS
-
-SumSang Phone Emulator (2021)
-Phone emulator built with Python
-
-Typer Cat (2022)
-A typing game built with Java
-
-Op Ja Kaw? (2023)
-A conference calling website built with HTML, Javascript, PHP, and CSS
-
-Guitar Distortion Pedal using Arduino Uno (2023)
-A guitar effects pedal prototype using an Arduino Uno
-
-POS System (2024)
-A point-of-sale system website built with HTML, Javascript, PHP, and CSS
-
-Generals (Game of the Generals Mobile Game) (2024)
-A mobile game based from the local board game Salpakan built with flutter.
-
-Project Kurdam (2023 - present)
-Top-down turn-based 2D game built with C# and Unity
-
-SKILLS
-
-Experience with Python, C, Javascript, HTML, CSS, PHP
-Experience with web development
-Experience with game development
-Experience with electronics repair and soldering
-Experience in photo and video editing
-Experience in music production
-
-LEADERSHIP EXPERIENCE
-
-President, UP Sonata (2023 - present)
-Treasurer, UP Sonata (2023)
-Batch Representative, Diwata Esports (2023)
-
-HOBBIES AND INTERESTS
-
-Music: 4 years of writing songs, currently a vocalist and rhythm guitarist of a small indie band
-Videography: Likes to record and edit short films with visual effects
-Inventions: Likes to create and design prototypes or simple inventions
+        // Create Header
+        const header = document.createElement('div');
+        header.classList.add('tools');
+        header.style.cursor = 'move';
+        header.innerHTML = `
+            <div class="window-bar">
+                <div class="circle"><span class="red box close-btn"></span></div>
+                <div class="circle"><span class="yellow box"></span></div>
+                <div class="circle"><span class="green box"></span></div>
+            </div>
+            <div class="window-bar" style="width:100%">//&nbsp;${title}</div>
         `;
 
-        const commandOutput = document.createElement("pre");
-        commandOutput.classList.add("output-line");
-        terminalOutput.appendChild(commandOutput);
-        typeWriter(cvContent, commandOutput);
+        // Create Content
+        const content = document.createElement('div');
+        content.classList.add('window-content');
+        content.innerHTML = template.innerHTML; 
+
+        win.appendChild(header);
+        win.appendChild(content);
+        document.body.appendChild(win);
+
+        // Bind Events
+        win.querySelector('.close-btn').onclick = () => win.remove();
+        win.addEventListener('mousedown', () => focusWindow(win));
+        dragElement(win, header);
     }
 
-    function showSkills() {
-        const cvContent = `
-SKILLS
-
-Experience with Python, C, Javascript, HTML, CSS, PHP
-Experience with web development
-Experience with game development
-Experience with electronics repair and soldering
-Experience in photo and video editing
-Experience in music production
-        `;
-
-        const commandOutput = document.createElement("pre");
-        commandOutput.classList.add("output-line");
-        terminalOutput.appendChild(commandOutput);
-        typeWriter(cvContent, commandOutput);
-    }
-
-    function showProjects() {
-        const cvContent = `
-PROJECTS
-
-SumSang Phone Emulator (2021)
-- Phone emulator built with Python
-
-Typer Cat (2022)
-- A typing game built with Java
-
-Op Ja Kaw? (2023)
-- A conference calling website built with HTML, Javascript, PHP, and CSS
-
-Guitar Distortion Pedal using Arduino Uno (2023)
-- A guitar effects pedal prototype using an Arduino Uno
-
-POS System (2024)
-- A point-of-sale system website built with HTML, Javascript, PHP, and CSS
-
-Generals (Game of the Generals Mobile Game) (2024)
-- A mobile game based from the local board game Salpakan built with flutter.
-
-Project Kurdam (2023 - present)
-- Top-down, open-world, turn-based 2D game built with C# and Unity inspired from Dungeons and dragons and Pokemon.
-        `;
-
-        const commandOutput = document.createElement("pre");
-        commandOutput.classList.add("output-line");
-        terminalOutput.appendChild(commandOutput);
-        typeWriter(cvContent, commandOutput);
-    }
-
-    dragElement(document.getElementById("mydiv"));
-
-    function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        if (document.getElementById(elmnt.id + "header")) {
-            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-        } else {
-            elmnt.onmousedown = dragMouseDown;
+    // --- 4. Commands ---
+    const commands = {
+        help: "Available commands: help, about, media, projects, contact, cv, clear.",
+        contact: "Email: benzvrianne@gmail.com",
+        cv: () => {
+             const link = document.createElement('a');
+             link.href = 'Benz_Beleber_CV.pdf';
+             link.download = 'Benz_Beleber_CV.pdf';
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);
+             printLog("> Downloading Resume...");
+        },
+        about: () => {
+            printLog("> Opening User_Profile...");
+            // POSITION: Top Left (Left: 5%, Top: 5%)
+            spawnWindow('tpl-about', 'About_Benz', '5%', '5%');
+        },
+        media: () => {
+            printLog("> Opening Media_Portfolio...");
+            // POSITION: Right Side (Left: 60%, Top: 15%)
+            spawnWindow('tpl-media', 'Media_Works', '5%', '55%');
+        },
+        projects: () => {
+            printLog("> Opening Dev_Projects...");
+            // POSITION: Bottom Left (Left: 5%, Top: 55%)
+            spawnWindow('tpl-projects', 'Code_Base', '60%', '15%');
+        },
+        clear: () => {
+            terminalOutput.innerHTML = "";
+            hello();
         }
+    };
+
+    // --- 5. Terminal Logic ---
+    function hello() {
+        const output = document.createElement("pre");
+        output.classList.add("output-line");
+        terminalOutput.appendChild(output);
+        typeWriter("\n> System Online. Type 'help' for commands.\n| about | projects | media | cv | contact |", output);
+    }
+
+    terminalInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            const input = terminalInput.value.trim().toLowerCase();
+            terminalInput.value = "";
+            printLog(`> ${input}`);
+
+            if (commands[input]) {
+                if (typeof commands[input] === "function") commands[input]();
+                else printLog(commands[input]);
+            } else {
+                printLog(`'${input}' is not recognized.`);
+            }
+        }
+    });
+
+    // --- 6. Drag Logic ---
+    function dragElement(elmnt, handle) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        const dragHandle = handle || elmnt;
+        
+        dragHandle.onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
             e = e || window.event;
-            e.preventDefault();
-
-            if (e.target.classList.contains("box")) {
-                return;
-            }
-
+            if (e.target.classList.contains('box') || e.target.tagName === 'INPUT') return;
             
+            e.preventDefault();
+            focusWindow(elmnt); 
             pos3 = e.clientX;
             pos4 = e.clientY;
             document.onmouseup = closeDragElement;
             document.onmousemove = elementDrag;
-
-            
         }
 
         function elementDrag(e) {
@@ -254,6 +170,18 @@ Project Kurdam (2023 - present)
             document.onmouseup = null;
             document.onmousemove = null;
         }
-    };
+    }
 
+    // --- 7. Initialization ---
+    if(mainTerminal) {
+        dragElement(mainTerminal, mainHeader);
+        mainTerminal.addEventListener('mousedown', () => focusWindow(mainTerminal));
+    }
+
+    hello();
+    
+    // Auto-open windows in sequence
+    setTimeout(() => commands.about(), 300);    // Top Left
+    // setTimeout(() => commands.projects(), 600); // Bottom Left
+    setTimeout(() => commands.media(), 900);    // Right Side
 });
