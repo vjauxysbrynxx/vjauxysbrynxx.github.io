@@ -3,111 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benz Vrianne Beleber</title>
-    <link rel="stylesheet" href="terminal.css">
-    <script src="terminal.js"></script>
+    <title>Benz Vrianne Beleber | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <video autoplay muted loop id="myVideo" class="full-width">
+    
+    <video autoplay muted loop id="bg-video">
         <source src="bg-loop.mp4" type="video/mp4">
     </video>
-    <img src="9.svg" alt="bg" class="bg-img">
     
-    <div class="terminal" id="mydiv">
-        <div class="tools" id="mydivheader">
-            <div class="window-bar">
-                <div class="circle"><span class="red box"></span></div>
-                <div class="circle"><span class="yellow box"></span></div>
-                <div class="circle"><span class="green box"></span></div>
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        
+        <div class="window-header">
+            <div class="dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
             </div>
-            <div class="window-bar">
-                <div>//&nbsp;Benz Vrianne Beleber</div>
-            </div>
+            <div class="address-bar">benz_beleber_portfolio.html</div>
         </div>
-        <div id="terminal-output"></div>
-        <div class="input-bar">
-            <div class="input-line">
-                <span class="prompt">> </span><input type="text" id="terminal-input" autofocus>
-            </div>
+
+        <div class="scrollable-content">
+            
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#media">Media</a>
+                <a href="#projects">Dev</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <section id="home" class="hero-section">
+                <div class="profile-wrap">
+                    <img src="https://placehold.co/150x150/6BAF8D/1e1e1e?text=BZ" alt="Benz Beleber">
+                </div>
+                <h1>Benz Vrianne Beleber</h1>
+                <p class="subtitle">CS Graduate @ UP Visayas | Multimedia Specialist</p>
+                <p class="bio">
+                    Passionate about bridging the gap between hardware, software, and creative media. 
+                    I build games, websites, fix electronics, and edit cinematic videos.
+                </p>
+                <div class="hero-btns">
+                    <button onclick="downloadCV()" class="btn primary"><i class="fas fa-download"></i> Download CV</button>
+                    <a href="#contact" class="btn secondary">Get in Touch</a>
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section id="media">
+                <h2><i class="fas fa-film"></i> Video & Motion Graphics</h2>
+                <div class="grid-container">
+                    
+                    <div class="card">
+                        <div class="video-wrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=n9Bc6aWheexaeWml&amp;list=PL1c0O8Cd2395Hc_6c6a05BhgT_Z5kt3_n" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-content">
+                            <h3>Mini Documentary</h3>
+                            <p>League of Legends deep dive focusing on narrative storytelling.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="video-wrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=SqdH48rx5d9pdQsK&amp;list=PL1c0O8Cd2395xLZeF4tYsNbkCbM1UCN_R" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-content">
+                            <h3>Music Video Portfolio</h3>
+                            <p>Rhythmic editing synchronized to the beat with atmospheric VFX.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="video-wrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/o2RQX5mmA-A?si=g9AzOdkzjZj7gTOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-content">
+                            <h3>Educational Motion Graphics</h3>
+                            <p>Visualizing Data Link Layer Framing through minimalist design.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section id="projects">
+                <h2><i class="fas fa-code"></i> Development Projects</h2>
+                <div class="grid-container">
+                    
+                    <div class="card">
+                        <img src="Wellness USA Homepage.png" class="project-img" alt="Wellness USA">
+                        <div class="card-content">
+                            <h3>Wellness USA (Shopify)</h3>
+                            <p>Full-stack Shopify management including custom HubSpot CRM integration and session handling.</p>
+                            <a href="https://wellness-usa.com/" class="link-text" target="_blank">Visit Store &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="Oxygenceuticals Homepage.png" class="project-img" alt="OxygenCeuticals">
+                        <div class="card-content">
+                            <h3>OxygenCeuticals USA</h3>
+                            <p>WordPress e-commerce development, site maintenance, and custom plugin updates.</p>
+                            <a href="https://www.oxygenceuticalsusa.com" class="link-text" target="_blank">Visit Site &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="Sugarmill Homepage.png" class="project-img" alt="DOST Sugarmill Project">
+                        <div class="card-content">
+                            <h3>Sugarmill Geographic Information System (DOST)</h3>
+                            <p>A specialized software project developed under the Department of Science and Technology (DOST) aimed at 
+enhancing the traceability and branding of regional sugar products.</p>
+                            <a href="#" class="link-text">Project Details &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="Stereocam.png" class="project-img" alt="Pothole Depth Estimation">
+                        <div class="card-content">
+                            <h3>Pothole Depth Estimation</h3>
+                            <p>Computer vision project utilizing stereo camera technology to accurately measure pothole depth for road maintenance analysis.</p>
+                            <a href="#" class="link-text">Technical Details &rarr;</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section id="contact" class="footer-section">
+                <h2>Let's Work Together</h2>
+                <p>Available for freelance video editing and web development.</p>
+                <a href="mailto:benzvrianne@gmail.com" class="email-link">benzvrianne@gmail.com</a>
+                
+                <div class="socials">
+                    <a href="https://github.com/vjauxysbrynxx"><i class="fab fa-github"></i></a>
+                    <a href="www.linkedin.com/in/benz-vrianne-beleber-b33060359"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@brynxxx"><i class="fab fa-youtube"></i></a>
+                    <a href="https://open.spotify.com/artist/2FAeR69fhommcKHcDg7Nja?si=qO-fvyRxQMCo6aKRdYw09Q"><i class="fab fa-spotify"></i></a>
+                </div>
+
+                
+                <p class="copyright">&copy; 2026 Benz Vrianne Beleber</p>
+            </section>
+
         </div>
     </div>
-    
-    <div class="footer">
-        <div class="footer-button"><a href="mailto:benzvrianne@gmail.com">@</a></div>
-        </div>
 
-    <template id="tpl-about">
-        <div class="profile-container">
-            <img src="https://placehold.co/150x150/6BAF8D/1e1e1e?text=BZ" class="profile-img" alt="Profile">
-            <div>
-                <p><strong>Benz Vrianne Beleber</strong><br>
-                Computer Science Graduate @ UP Visayas | Freelancer</p>
-                <p style="font-size:0.9em; margin-top:10px;">
-                Passionate about bridging the gap between hardware, software, and creative media. 
-                I build games and software, fix electronics, and edit cinematic videos.
-                </p>
-                <a href="mailto:benzvrianne@gmail.com" class="btn-action">Contact Me</a>
-            </div>
-        </div>
-    </template>
-
-    <template id="tpl-media">
-        <p>Freelance video editing & motion graphics portfolio.</p>
-        
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="desc">
-                    <h4>Mini Documentary</h4>
-                    <p>League of Legends deep dive.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="desc">
-                    <h4>Music Videos</h4>
-                    <p>Lalalala.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item">
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/o2RQX5mmA-A?si=l0J1QAJ5aznWHnv8&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                <div class="desc">
-                    <h4>Educational</h4>
-                    <p>Lalalala.</p>
-                </div>
-            </div>
-
-        </div>
-    </template>
-
-    <template id="tpl-projects">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/232E33/FFF?text=Generals" alt="Game">
-                <div class="desc">
-                    <h4>Generals Mobile</h4>
-                    <p>Flutter Board Game.</p>
-                    <a href="#" class="btn-action">View Repo</a>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/232E33/FFF?text=POS" alt="Web">
-                <div class="desc">
-                    <h4>Web POS</h4>
-                    <p>PHP Inventory System.</p>
-                    <a href="#" class="btn-action">View Repo</a>
-                </div>
-            </div>
-        </div>
-    </template>
-
+    <script>
+        function downloadCV() {
+            const link = document.createElement('a');
+            link.href = 'Benz_Beleber_CV.pdf'; // Ensure this file exists!
+            link.download = 'Benz_Beleber_CV.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert("Download started!");
+        }
+    </script>
 </body>
 </html>
